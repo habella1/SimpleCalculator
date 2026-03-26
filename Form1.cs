@@ -91,10 +91,25 @@ namespace SimpleCalculator
             txtExpression.Text = "";
         }
 
-        // ===== 과제3용 버튼들 (아직 기능 없음) =====
-        private void btnClear_Click(object sender, EventArgs e) { }
-        private void btnClearEntry_Click(object sender, EventArgs e) { }
-        private void btnDelete_Click(object sender, EventArgs e) { }
+        // ===== 과제3용 버튼들  =====
+        private void btnClear_Click(object sender, EventArgs e) {
+            txtResult.Text = "";       // 입력창 초기화
+            txtExpression.Text = "";   // 연산 표시 초기화
+            num1 = 0;
+            num2 = 0;
+            op = "";
+
+        }
+        private void btnClearEntry_Click(object sender, EventArgs e) {
+            txtResult.Text = "";
+        }
+        private void btnDelete_Click(object sender, EventArgs e) {
+            if (txtResult.Text.Length > 0)
+            {
+                txtResult.Text = txtResult.Text.Substring(0, txtResult.Text.Length - 1);
+            }
+
+        }
         private void btnDot_Click(object sender, EventArgs e) { }
         private void btnEquals_Click(object sender, EventArgs e) { }
         private void btnSign_Click(object sender, EventArgs e) { }
