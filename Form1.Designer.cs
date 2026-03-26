@@ -51,6 +51,7 @@
             btnDot = new Button();
             btnEquals = new Button();
             btnEnter = new Button();
+            btnRandomColor = new Button();
             SuspendLayout();
             // 
             // lbTitle
@@ -70,6 +71,7 @@
             txtExpression.Name = "txtExpression";
             txtExpression.Size = new Size(610, 39);
             txtExpression.TabIndex = 1;
+            txtExpression.TextChanged += txtExpression_TextChanged;
             // 
             // txtResult
             // 
@@ -281,11 +283,25 @@
             btnEnter.UseVisualStyleBackColor = true;
             btnEnter.Click += btnEnter_Click;
             // 
+            // btnRandomColor
+            // 
+            btnRandomColor.BackColor = Color.FromArgb(255, 192, 192);
+            btnRandomColor.Font = new Font("한컴 백제 M", 8.999999F, FontStyle.Bold, GraphicsUnit.Point, 129);
+            btnRandomColor.ForeColor = Color.FromArgb(192, 0, 192);
+            btnRandomColor.Location = new Point(633, 17);
+            btnRandomColor.Name = "btnRandomColor";
+            btnRandomColor.Size = new Size(146, 49);
+            btnRandomColor.TabIndex = 23;
+            btnRandomColor.Text = "색상변경";
+            btnRandomColor.UseVisualStyleBackColor = false;
+            btnRandomColor.Click += btnRandomColor_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(14F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 829);
+            Controls.Add(btnRandomColor);
             Controls.Add(btnEnter);
             Controls.Add(btnEquals);
             Controls.Add(btnDot);
@@ -340,5 +356,6 @@
         private Button btnDot;
         private Button btnEquals;
         private Button btnEnter;
+        private Button btnRandomColor;
     }
 }

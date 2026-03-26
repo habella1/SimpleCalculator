@@ -52,7 +52,7 @@ namespace SimpleCalculator
             if (txtResult.Text == "") return;
             num1 = int.Parse(txtResult.Text);
             op = "*";
-            txtExpression.Text = txtResult.Text + " *";
+            txtExpression.Text = txtResult.Text + " X";
             txtResult.Text = "";
         }
 
@@ -71,28 +71,49 @@ namespace SimpleCalculator
         {
             if (txtResult.Text == "") return;
 
-            num2 = int.Parse(txtResult.Text);
-            int result = 0;
+            num2 = int.Parse(txtResult.Text);  // 입력창 숫자 가져오기
+            double result = 0;
 
-            if (op == "+") result = num1 + num2;
-            else if (op == "-") result = num1 - num2;
-            else if (op == "*") result = num1 * num2;
-            else if (op == "/")
+            // 연산자 화면용 변환 (* → ×, / → ÷)
+            string displayOp = op;
+            if (op == "*") displayOp = "×";
+            else if (op == "/") displayOp = "÷";
+
+            // 계산
+            switch (op)
             {
-                if (num2 == 0)
-                {
-                    MessageBox.Show("0으로 나눌 수 없습니다.");
-                    return;
-                }
-                result = num1 / num2;
+                case "+": result = num1 + num2; break;
+                case "-": result = num1 - num2; break;
+                case "*": result = num1 * num2; break;
+                case "/":
+                    if (num2 == 0)
+                    {
+                        MessageBox.Show("0으로 나눌 수 없습니다.");
+                        txtResult.Text = "";
+                        txtExpression.Text = "";
+                        return;
+                    }
+                    result = (double)num1 / num2;
+                    break;
+                default: return;
             }
 
-            txtResult.Text = result.ToString();
-            txtExpression.Text = "";
+            //  계산 후 위쪽 텍스트박스에만 전체 표시
+            txtExpression.Text = $"{num1} {displayOp} {num2} = {result}";
+
+            // 아래 입력창 비우기 → 입력 내용 사라짐
+            txtResult.Text = "";
+
+            // 포커스 이동으로 다음 입력 준비
+            txtResult.Focus();
         }
 
+
+
         // ===== 과제3용 버튼들  =====
-        private void btnClear_Click(object sender, EventArgs e) {
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+           
             txtResult.Text = "";       // 입력창 초기화
             txtExpression.Text = "";   // 연산 표시 초기화
             num1 = 0;
@@ -100,10 +121,13 @@ namespace SimpleCalculator
             op = "";
 
         }
-        private void btnClearEntry_Click(object sender, EventArgs e) {
+        private void btnClearEntry_Click(object sender, EventArgs e)
+        {
             txtResult.Text = "";
+
         }
-        private void btnDelete_Click(object sender, EventArgs e) {
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
             if (txtResult.Text.Length > 0)
             {
                 txtResult.Text = txtResult.Text.Substring(0, txtResult.Text.Length - 1);
@@ -122,6 +146,23 @@ namespace SimpleCalculator
             op = "/";                              // 연산자 저장
             txtExpression.Text = txtResult.Text + " ÷"; // 위쪽 표시 업데이트
             txtResult.Text = "";                   // 입력창 초기화
+        }
+
+        // "색상변경"버튼 클릭시 랜덤으로 배경색 변경
+        private void btnRandomColor_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            // R, G, B 값을 0~255 사이 랜덤으로 생성
+            int r = rnd.Next(256);
+            int g = rnd.Next(256);
+            int b = rnd.Next(256);
+
+            this.BackColor = Color.FromArgb(r, g, b);  // 폼 배경 색상 변경
+        }
+
+        private void txtExpression_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
